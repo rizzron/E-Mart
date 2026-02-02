@@ -1,4 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
+from ..models import User
+from ..schemas import UserPublic, UserCreate
+from ..database import SessionDep
 
 router = APIRouter(
     prefix='/users',
@@ -6,6 +9,9 @@ router = APIRouter(
 )
 
 
-@router.get('/')
-def get_all_user():
-    return 'All user here.'
+@router.post('/', status_code=status.HTTP_200_OK)
+def create_user(user: UserCreate, session: SessionDep):
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+    return user

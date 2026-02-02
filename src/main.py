@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from routers import users, products, categories
-import database
-import models
+from .routers import users, products, categories
+from . import database
+from . import models
 
 app = FastAPI()
 
