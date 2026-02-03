@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
-from ..models import User
-from ..schemas import UserPublic, UserCreate
+from ..models import User, UserPublic, UserCreate
 from ..database import SessionDep
+from ..hashing import get_password_hash
 
 router = APIRouter(
     prefix='/users',
@@ -11,7 +11,9 @@ router = APIRouter(
 
 @router.post('/', status_code=status.HTTP_200_OK)
 def create_user(user: UserCreate, session: SessionDep):
-    session.add(user)
+    hashed_password = get_password_hash(user.password)
+    new_user = User(username=user.username, email=user.email, password=hashed_password)
+    session.add(new_user)
     session.commit()
-    session.refresh(user)
-    return user
+    session.refresh(new_user)
+    return new_user
