@@ -34,6 +34,15 @@ class Product(SQLModel, table=True):
     image: str | None
 
 
+class ProductCreate(SQLModel):
+    name: str
+    description: str
+    price: int
+    stock: int
+    category_id: int = Field
+    image: str | None
+
+
 class Category(SQLModel, table=True):
     __tablename__ = 'categories'
     id: int | None = Field(index=True, primary_key=True)

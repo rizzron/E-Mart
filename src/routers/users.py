@@ -2,6 +2,7 @@ from fastapi import APIRouter, status
 from ..models import User, UserPublic, UserCreate
 from ..database import SessionDep
 from ..hashing import get_password_hash
+from sqlmodel import select
 
 router = APIRouter(
     prefix='/users',
@@ -17,3 +18,9 @@ def create_user(user: UserCreate, session: SessionDep):
     session.commit()
     session.refresh(new_user)
     return new_user
+
+
+@router.get('/', status_code=status.HTTP_200_OK)
+def get_all_user(session: SessionDep):
+    users = session.exec(select(User)).all()
+    return users
