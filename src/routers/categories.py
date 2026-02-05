@@ -1,4 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
+from ..database import SessionDep
+from ..models import Category
+from typing import List
+from sqlmodel import select
 
 router = APIRouter(
     prefix='/categories',
@@ -7,5 +11,8 @@ router = APIRouter(
 
 
 @router.get('/')
-def get_all_categories():
-    return 'All categories here'
+def get_all_categories(session: SessionDep) -> List[Category]:
+    categories = session.get(select(Category)).all()
+    return categories
+
+

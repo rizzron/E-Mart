@@ -41,8 +41,8 @@ class ProductCreate(SQLModel):
     stock: int
     category_id: int = Field
     image: str | None
-
-
+    
+    
 class Category(SQLModel, table=True):
     __tablename__ = 'categories'
     id: int | None = Field(index=True, primary_key=True)
