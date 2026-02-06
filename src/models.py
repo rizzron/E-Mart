@@ -45,8 +45,14 @@ class ProductCreate(SQLModel):
     
 class Category(SQLModel, table=True):
     __tablename__ = 'categories'
+
     id: int | None = Field(index=True, primary_key=True)
     name: str = Field(unique=True, index=True)
+    description: str
+
+
+class CategoryCreate(SQLModel):
+    name: str
     description: str
 
 

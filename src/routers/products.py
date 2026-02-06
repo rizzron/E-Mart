@@ -50,7 +50,7 @@ def create_product(product: ProductCreate, session: SessionDep):
 
 
 @router.get('/{product_id}', status_code=status.HTTP_200_OK)
-def get_by_id(product_id, session: SessionDep):
+def get_by_id(product_id: int, session: SessionDep):
     product = session.get(Product, product_id)
     if not product:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'No product found with the ID {product_id}')
