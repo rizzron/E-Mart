@@ -62,9 +62,10 @@ pip install -r requirements.txt
 Run the server
 
 uvicorn main:app --reload
-🎯 Project Objective
 
-# This project was built to strengthen backend development skills including:
+# 🎯 Project Objective
+
+This project was built to strengthen backend development skills including:
 
 RESTful API design
 
